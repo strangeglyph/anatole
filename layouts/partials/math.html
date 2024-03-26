@@ -16,23 +16,51 @@
       MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
     </script>
   {{- else -}}
-    {{- $url := "https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" -}}
-    {{- $hash := "sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" -}}
-    <link rel="stylesheet" href="{{- $url -}}" integrity="{{- $hash -}}" crossorigin="anonymous" />
+    {{- if eq site.Params.math.local true -}}
+      {{- $style := resources.Get "katex@0.13.0/katex.min.css" | resources.Fingerprint -}}
+      <link
+        rel="stylesheet"
+        href="{{ $style.RelPermalink }}"
+        integrity="{{ $style.Data.Integrity }}"
+        crossorigin="anonymous"
+        type="text/css"
+      />
 
-    {{- $url := "https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" -}}
-    {{- $hash := "sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" -}}
-    <script defer src="{{- $url -}}" integrity="{{- $hash -}}" crossorigin="anonymous"></script>
+      {{- $style := resources.Get "katex@0.13.0/katex.min.js" | resources.Fingerprint -}}
+      <script
+        defer
+        src="{{ $style.RelPermalink }}"
+        integrity="{{ $style.Data.Integrity }}"
+        crossorigin="anonymous"
+      ></script>
 
-    {{- $url := "https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" -}}
-    {{- $hash := "sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" -}}
-    <script
-      defer
-      src="{{- $url -}}"
-      integrity="{{- $hash -}}"
-      crossorigin="anonymous"
-      onload="renderMathInElement(document.body);"
-    ></script>
+      {{- $style := resources.Get "katex@0.13.0/auto-render.min.js" | resources.Fingerprint -}}
+      <script
+        defer
+        src="{{ $style.RelPermalink }}"
+        integrity="{{ $style.Data.Integrity }}"
+        crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"
+      ></script>
+    {{- else -}}
+      {{- $url := "https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" -}}
+      {{- $hash := "sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw" -}}
+      <link rel="stylesheet" href="{{- $url -}}" integrity="{{- $hash -}}" crossorigin="anonymous" />
+
+      {{- $url := "https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" -}}
+      {{- $hash := "sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8+w2LAIftJEULZABrF9PPFv+tVkH" -}}
+      <script defer src="{{- $url -}}" integrity="{{- $hash -}}" crossorigin="anonymous"></script>
+
+      {{- $url := "https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js" -}}
+      {{- $hash := "sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB+w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v" -}}
+      <script
+        defer
+        src="{{- $url -}}"
+        integrity="{{- $hash -}}"
+        crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"
+      ></script>
+    {{- end -}}
   {{- end -}}
 
 {{- end -}}
