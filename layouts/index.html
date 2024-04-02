@@ -49,16 +49,29 @@
         </div>
       {{ end }}
       <div class="post__content">
-        <h3><a href="{{ .RelPermalink }}">{{ upper .Title }}</a></h3>
-        {{ if .Site.Params.fullPostContent }}
-          <p>{{ .Content | markdownify }}</p>
-        {{ else }}
-          <p>{{ .Summary | markdownify }}</p>
+        <h3>
+        {{ if .Params.awards }}
+          {{ range .Params.awards }}
+            <i class="fa-solid fa-star" title="{{ . }}"></i>
+          {{ end }}
+        {{ end }}<a href="{{ .RelPermalink }}">{{ upper .Title }}</a></h3>
+        <div class="post__metadata">
+        <span class="post__authors-list">
+        {{ range $index, $author := .Params.authors }}
+          {{ if $index }}&middot;{{ end }}
+          <span class="post__author">{{ $author }}<span>
         {{ end }}
-        <!-- add read more -->
-        {{- if and (.Truncated) (.Site.Params.readMore) -}}
-          <a href="{{ .RelPermalink }}">{{ i18n "read_more" }}</a>
-        {{- end -}}
+        </span>
+        <span class="post__meta-divider">&mdash;</span>
+        {{ range $index, $link := .Params.links }}
+          {{ if $index }}&middot;{{ end }}
+          <a href="{{ $link.url }}">{{ $link.name }}</a>
+        {{ end }}
+        </div>
+        <details class="post__abstract-details">
+          <summary>Abstract</summary>
+          <p>{{ .Params.abstract | markdownify }}</p>
+        </details>
       </div>
 
       <!--  -->

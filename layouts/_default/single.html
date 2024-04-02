@@ -42,13 +42,39 @@
         </ul>
       {{ end }}
 
+      <div class="post__metadata">
+        {{ if .Params.awards }}
+        {{ range .Params.awards }}
+          <div class="post__metadata-award">
+            <i class="fa-solid fa-star"></i>&nbsp;
+            <span>{{.}}</span>
+          </div>
+        {{ end }}
+        <div class="post__metadata-award-divider"></div>
+        {{ end }}
+        
+        <span class="post__metadata-authors-list">
+        {{ range $index, $author := .Params.authors }}
+          {{ if $index }}&middot;{{ end }}
+          <span class="post__author">{{ $author }}<span>
+        {{ end }}
+        </span>
+        <span class="post__metadata-divider">&mdash;</span>
+        <span class="post__metadata-links">
+        {{ range $index, $link := .Params.links }}
+          {{ if $index }}&middot;{{ end }}
+          <a href="{{ $link.url }}">{{ $link.name }}</a>
+        {{ end }}
+        </span>
+      </div>
+      
       {{- partial "expirationnote.html" . -}}
 
       {{- if (eq .Params.toc true) -}}
         {{- partial "toc.html" . -}}
       {{- end -}}
 
-      {{ .Content }}
+      {{ .Params.abstract | markdownify }}
 
       {{- if isset .Params "series" -}}
         {{- partial "series.html" . -}}
