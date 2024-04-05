@@ -1,8 +1,31 @@
 # Fork Info
 
-This is a fork of [lxndrblz's anatole theme](https://github.com/lxndrblz/anatole), with some 
-quick modifications to host katex locally for GDPR compliance. This is not a general 
-GDPR-complyification of anatole.
+This is a fork of [lxndrblz's anatole theme](https://github.com/lxndrblz/anatole), 
+with some modifications for personal use such as:
+
+- Host katex locally for GDPR compliance.
+- Page metadata: `authors : [Str]`, displayed under title on index and page proper, e.g
+  ```yml
+  authors:
+    - Alice
+    - Bob
+  ```
+- Page metadata: `links : [(name : Str, url : Str)]`, 
+  displayed under title on index and page proper, e.g
+  ```yml
+  links:
+    - name: arXiv
+      url: arxiv.org/somelink
+    - name: DOI
+      url: doi.org/somedoi
+  ```
+- Page metadata: `awards: [Str]` displayed as star with title text
+  next to title on index and list view,
+  elaborated under title on page proper, e.g.
+  ```yml
+  awards:
+    - Best Paper Award at SIGBovik 2020
+  ```
 
 
 # Anatole Hugo Theme ![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg) [![https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://www.conventionalcommits.org/) [![Netlify Status](https://api.netlify.com/api/v1/badges/1f4f2327-2b3f-428a-8f31-c4f921ebcc44/deploy-status)](https://app.netlify.com/sites/anatole-demo/deploys)
