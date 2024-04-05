@@ -50,11 +50,15 @@
       {{ end }}
       <div class="post__content">
         <h3>
-        {{ if .Params.awards }}
-          {{ range .Params.awards }}
-            <i class="fa-solid fa-star" title="{{ . }}"></i>
+        <a href="{{ .RelPermalink }}">
+          {{ if .Params.awards }}
+            {{ range .Params.awards }}
+              <i class="fa-solid fa-star" title="{{ . }}"></i>
+            {{ end }}
           {{ end }}
-        {{ end }}<a href="{{ .RelPermalink }}">{{ upper .Title }}</a></h3>
+          {{ upper .Title }}
+        </a>
+        </h3>
         <div class="post__metadata">
         <span class="post__authors-list">
         {{ range $index, $author := .Params.authors }}
